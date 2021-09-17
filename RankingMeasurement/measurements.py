@@ -19,11 +19,13 @@ Reference
 [3]	R. L. Iman and W. J. Conover, “A Measure of Top-Down Correlation,” Technometrics, vol. 29, no. 3, p. 351, 
     Aug. 1987, doi: 10.2307/1269344.
 [4]	R. Confalonieri, G. Bellocchi, S. Bregaglio, M. Donatelli, and M. Acutis, “Comparison of sensitivity analysis
-    techniques: A case study with the rice model WARM,” Ecol. Modell., vol. 221, no. 16, pp. 1897–1906, 2010,\
+    techniques: A case study with the rice model WARM,” Ecol. Modell., vol. 221, no. 16, pp. 1897–1906, 2010,
     doi: 10.1016/j.ecolmodel.2010.04.021.
 [5]	S. Razavi and H. V. Gupta, “A new framework for comprehensive, robust, and efficient global sensitivity
     analysis: 2. Application,” Water Resour. Res., vol. 52, no. 1, pp. 440–455, Jan. 2016, doi: 10.1002/2015WR017559.
-
+[6] I. R. Savage, “Contributions to the Theory of Rank Order Statistics-the Two-Sample Case,” Ann. Math. Stat.,
+    vol. 27, no. 3, pp. 590–615, 1956, [Online]. Available: https://www.jstor.org/stable/2237370.
+    
 '''
 
 def position_factor(S1, S2):
@@ -76,7 +78,7 @@ def SSTDCC(S_resample):
         
     The top-down coefficient of concordance (TDCC) is capable of measuring the level of agreement between the
     ranking from either multiple sensitivity analysis methods or multiple bootstrap resamples [3].
-    The savage score is later employed with TDCC by Confalonieri et al. [4].
+    The savage score [6] is later employed with TDCC by Confalonieri et al. [4].
 
     ''' 
     
