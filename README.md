@@ -3,6 +3,8 @@ This library attempts to collect the convergence analyses for ranking purposes f
 
 The library currently collects Position Factor [1, 2], TDCC (top-down coefficient of concordance) with Savage score [3, 4, 7], and Reliability [5].
 
+Sep 18th: Now the library also supports Stat<sub>ranking</sub> created by Sarrazin et al. [8]. The code for using Stat<sub>ranking</sub> is similar as TDCC.
+
 The "Tutorial" Jupyter Notebook shows how to use each of the ranking measurements with the help of SALib Python Library [6].
 ## Requirements
 [Numpy](https://numpy.org/), [Scipy](https://www.scipy.org/), Python 3
@@ -24,3 +26,4 @@ The "Tutorial" Jupyter Notebook shows how to use each of the ranking measurement
 
 [7]	I. R. Savage, “Contributions to the Theory of Rank Order Statistics-the Two-Sample Case,” Ann. Math. Stat., vol. 27, no. 3, pp. 590–615, 1956, [Online]. Available: https://www.jstor.org/stable/2237370.
 
+[8] F. Sarrazin, F. Pianosi, and T. Wagener, “Global Sensitivity Analysis of environmental models: Convergence and validation,” Environ. Model. Softw., vol. 79, pp. 135–152, 2016, doi: 10.1016/j.envsoft.2016.02.005.
