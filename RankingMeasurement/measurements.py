@@ -25,7 +25,9 @@ Reference
     analysis: 2. Application,” Water Resour. Res., vol. 52, no. 1, pp. 440–455, Jan. 2016, doi: 10.1002/2015WR017559.
 [6] I. R. Savage, “Contributions to the Theory of Rank Order Statistics-the Two-Sample Case,” Ann. Math. Stat.,
     vol. 27, no. 3, pp. 590–615, 1956, [Online]. Available: https://www.jstor.org/stable/2237370.
-    
+[7] F. Sarrazin, F. Pianosi, and T. Wagener, “Global Sensitivity Analysis of environmental models: Convergence and
+    validation,” Environ. Model. Softw., vol. 79, pp. 135–152, 2016, doi: 10.1016/j.envsoft.2016.02.005.
+   
 '''
 
 def position_factor(S1, S2):
@@ -132,3 +134,57 @@ def Reliability(S1, S_resample):
         count[i] = (S_resamples_rank[:, i] == S1_rank[i]).sum()
     
     return count/float(m)
+
+def Sarrazin_stat_ranking(S_resample, conf_level = 95):
+    '''
+
+    Parameters
+    ----------
+    S_resample : numpy.array
+        An array with the size of R by k, where R is the number of bootstrap resamples,
+        and k is the number of model parameters.
+        This array consists of sensitivity measures obtained from every single bootstrap resample.
+    conf_level : Int, optional
+        The desired confidence interval. The default is 95.
+
+    Returns
+    -------
+    rho_stat : float
+        A scalar that indicates the convergence status of the ranking results by checking
+        the agreement between the resamples. The ranking result is considered to be converged
+        when the returned value is less than 1. If the value is 1, the difference of ranking in
+        resamples for the most sensitive model parameters is less or equal to one position on
+        average.
+        
+    This measurement is based on the work of Sarrazin et al [7], and it is a modified version of 
+    the Spearman's rank correlation coefficient. 
+
+    '''
+    num_resamples, k = np.shape(S_resample)
+    item = num_resamples * (num_resamples - 1) / 2
+    rho_arr = np.zeros(int(item))
+
+    l = 0
+    
+    for i in range(num_resamples - 1):
+        for j in range(i + 1, num_resamples):
+            rho_arr[l] = Sarrazin_ranking(S_resample[i, :], S_resample[j, :], k)
+            l += 1
+
+    rho_stat = np.percentile(rho_arr, conf_level, interpolation = 'linear')
+    
+    return rho_stat
+
+def Sarrazin_ranking(S_j, S_k, k):
+    
+    R_j = ranking(S_j)
+    R_k = ranking(S_k)
+    
+    Y1 = 0.
+    Y2 = 0.
+    for i in range(k):
+        Y1 = Y1 + np.abs(R_j[i] - R_k[i]) * (np.max([S_j[i], S_k[i]])**2)
+        Y2 = Y2 + np.max([S_j[i], S_k[i]])**2
+    rho = Y1 / Y2
+    
+    return rho
